@@ -1,2 +1,1 @@
-# first
-테스트 
+LINUX PROGRAMMINGㅣ

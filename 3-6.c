@@ -7,29 +7,21 @@
 #include <unistd.h>
 
 int main(int argc, char* argv[]) {
-	struct dirent *dent;
-	struct stat buf;
-	char path[BUFSIZ];
+	struct dirent* dent;
+	char* cwd = getcwd(NULL, BUFSIZ);
+	printf("Current directory path: %s. \n", cwd);
 
-	if (argc != 2) {
-		printf("Error,출력할 디렉토리명을 입력하세요. \n");
-		exit(1);
-	}
-	if (argc == 2) {
-
-		DIR* dp = opendir(argv[1]);
-
+		DIR* dp = opendir(cwd);
 		if (dp == NULL) {
-			perror("Error Can not approach directory.");
+			perror("Error! Can not approach to directory.");
 			exit(1);
 		}
+	while ((dent = readdir(dp))) {
+		if (dent->d_name[0] == '.') continue;
 
-		while ((dent = readdir(dp))) {
-			if (dent->d_name[0] == '.') continue;
-			else printf("Name : %s\n", dent->d_name);
+		else printf("Name : %s\n", dent->d_name);
 
-		}
-		closedir(dp);
 	}
+	closedir(dp);
 	return 0;
 }

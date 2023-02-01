@@ -17,36 +17,36 @@ int main(int argc, char* argv[]) {
 		exit(1);
 	}
 	if (argc == 2) {
+	    DIR* dp = opendir(argv[1]);
 
-	DIR* dp = opendir(argv[1]);
+	    if (dp == NULL) {
+		    perror("Error Can not approach directory.");
+		    exit(1);
+	    }
+	    while (dent = readdir(dp))
+	    {
+		    if (dent->d_name[0] == '.'){
+			    continue;
+		    }
+		    else {
+			    sprintf(path,"%s/%s",argv[1],dent->d_name);
+			    stat(path,&buf);
+			    kind = buf.st_mode & S_IFMT;
 
-	if (dp == NULL) {
-		perror("Error Can not approach directory.");
-		exit(1);
-	}
-	while (dent = readdir(dp))
-	{
-		if (dent->d_name[0] == '.'){
-			 continue;
-		}
-		else {
-			sprintf(path,"%s/%s",argv[1],dent->d_name);
-			stat(path,&buf);
-			kind = buf.st_mode & S_IFMT;
-
-			switch (kind)
-			{
-			case S_IFDIR:
-				printf("%s is Directory.\n",dent->d_name);
-				break;
-		 	case S_IFREG:	
-				printf("%s is File.\n",dent->d_name);
-				break;
-			}
-		}
-	}
+			    switch (kind)
+			    {
+			    case S_IFDIR:
+				    printf("%s is Directory.\n",dent->d_name);
+				    break;
+		 	    case S_IFREG:	
+				    printf("%s is File.\n",dent->d_name);
+				    break;
+			    }
+		    }
+	    }
 	closedir(dp);
-}
+    }
+    
 	return 0;
 
 }

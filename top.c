@@ -2,7 +2,7 @@
 #include<stdio.h>
 #include <dirent.h>
 #include <sys/stat.h>
-#include <unistd.h>
+# include <unistd.h>
 
 int main(int argc, char* argv[]) {
 	struct dirent* dent;

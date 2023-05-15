@@ -1,2 +1,2 @@
 LINUX PROGRAMMING
-: PuTTY 사용
+- PuTTY 사용
